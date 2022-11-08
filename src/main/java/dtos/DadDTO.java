@@ -4,7 +4,6 @@ public class DadDTO {
     String id;
     String joke;
     String url;
-
     public DadDTO(String id, String joke, String url) {
         this.id = id;
         this.joke = joke;

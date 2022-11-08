@@ -2,7 +2,9 @@ package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,6 +37,13 @@ public class User implements Serializable {
     @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
   @ManyToMany
   private List<Role> roleList = new ArrayList<>();
+
+  @ManyToMany
+  @JoinTable( // This is now the owner side of the relationsship
+          name = "champs_people",
+          joinColumns = @JoinColumn(name = "champion_id"),
+          inverseJoinColumns = @JoinColumn(name = "user_id"))
+  private Set<Champion> champions = new LinkedHashSet<>();
 
   public List<String> getRolesAsStrings() {
     if (roleList.isEmpty()) {
