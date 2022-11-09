@@ -1,7 +1,6 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import dtos.ChampsDTO;
 import entities.Champion;
 import entities.RenameMe;
 import entities.User;
