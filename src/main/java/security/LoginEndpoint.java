@@ -11,6 +11,7 @@ import com.nimbusds.jose.JWSSigner;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import dtos.UserDTO;
 import entities.Role;
 import facades.UserFacade;
 
@@ -64,6 +65,7 @@ public class LoginEndpoint {
             }
             responseJson.add("roles", roles);
             responseJson.addProperty("token", token);
+            responseJson.addProperty("user", new Gson().toJson(new UserDTO(user)));
             return Response.ok(new Gson().toJson(responseJson)).build();
 
         } catch (JOSEException | AuthenticationException ex) {

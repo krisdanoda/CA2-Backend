@@ -1,8 +1,11 @@
 package entities;
 
+import dtos.ChampionDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,12 +21,8 @@ public class Champion implements Serializable {
     private String name;
 
 
-    @ManyToMany
-    @JoinTable( // This is now the owner side of the relationship
-            name = "champs_people",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "champion_id"))
-    private Set<User> users = new LinkedHashSet<>();
+    @ManyToMany(mappedBy = "champions")
+    private List<User> userList;
 
     public Champion() {
     }
@@ -33,6 +32,10 @@ public class Champion implements Serializable {
         this.name = name;
     }
 
+    public ChampionDTO createDTO(){
+        return new ChampionDTO( name, id);
+    }
+
     @Override
     public String toString() {
         return "Champion{" +
@@ -40,5 +43,29 @@ public class Champion implements Serializable {
                 ", name='" + name + '\'' +
 
                 '}';
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }

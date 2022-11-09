@@ -38,12 +38,12 @@ public class User implements Serializable {
   @ManyToMany
   private List<Role> roleList = new ArrayList<>();
 
+  @JoinTable(name = "user_champs", joinColumns = {
+          @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
+          @JoinColumn(name = "champ_ID", referencedColumnName = "ID")})
   @ManyToMany
-  @JoinTable( // This is now the owner side of the relationsship
-          name = "champs_people",
-          joinColumns = @JoinColumn(name = "champion_id"),
-          inverseJoinColumns = @JoinColumn(name = "user_id"))
-  private Set<Champion> champions = new LinkedHashSet<>();
+  private List<Champion> champions = new ArrayList<>();
+
 
   public List<String> getRolesAsStrings() {
     if (roleList.isEmpty()) {
@@ -98,4 +98,11 @@ public class User implements Serializable {
     roleList.add(userRole);
   }
 
+  public List<Champion> getChampions() {
+    return champions;
+  }
+
+  public void setChampions(List<Champion> champions) {
+    this.champions = champions;
+  }
 }

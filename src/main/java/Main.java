@@ -27,7 +27,7 @@ public class Main {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("C:\\Users\\Kristofer\\Programming\\Java\\CA2_Backend_league\\src\\main\\java\\output.json"))
+        try (FileReader reader = new FileReader("C:\\Users\\krist\\Programming\\JS\\CA2-frontend-league\\CA2-Backend\\src\\main\\java\\output.json"))
         {
             //Read JSON file
             Object obj = jsonParser.parse(reader);
@@ -46,9 +46,9 @@ public class Main {
             e.printStackTrace();
         }
 
-
-
     }
+
+
 
 
     public static void parseChamp(JSONObject champ){
@@ -69,3 +69,4 @@ public class Main {
         }
     }
 }
+
