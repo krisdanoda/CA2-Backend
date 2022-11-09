@@ -12,13 +12,13 @@ import java.util.Set;
 public class UserDTO {
 
     String user_name;
-    ArrayList<String> roles = new ArrayList<>();
-    ArrayList<ChampionDTO> champions = new ArrayList<>();
+    Set<String> roles;
+    Set<ChampionDTO> champions ;
 
     public UserDTO(User user){
         this.user_name = user.getUserName();
-        this.champions = new ArrayList<>();
-        this.roles = new ArrayList<>();
+        this.champions = new HashSet<>();
+        this.roles = new HashSet<>();
 
         this.roles.addAll(user.getRolesAsStrings());
         for (Champion champion: user.getChampions()) {
@@ -30,6 +30,7 @@ public class UserDTO {
     public User createEntity(){
 
         User user = new User();
+        user.setUserName(this.user_name);
         List<Role> entityRoles = new ArrayList<>();
         for (String role: roles) {
             entityRoles.add(new Role(role));
@@ -53,19 +54,28 @@ public class UserDTO {
         this.user_name = user_name;
     }
 
-    public ArrayList<String> getRoles() {
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(ArrayList<String> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 
-    public ArrayList<ChampionDTO> getChampions() {
+    public Set<ChampionDTO> getChampions() {
         return champions;
     }
 
-    public void setChampions(ArrayList<ChampionDTO> champions) {
+    public void setChampions(Set<ChampionDTO> champions) {
         this.champions = champions;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "user_name='" + user_name + '\'' +
+                ", roles=" + roles +
+                ", champions=" + champions +
+                '}';
     }
 }

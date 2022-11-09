@@ -75,7 +75,9 @@ public class DemoResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response updatePerson(@PathParam("id") String userName, String content) throws EntityNotFoundException {
+        System.out.println("check 1 " + content);
         UserDTO userDTO = GSON.fromJson(content, UserDTO.class);
+        System.out.println("check 2" + userDTO.toString());
         UserDTO updatedUserDTO = UserFacade.getUserFacade(EMF).update(userDTO);
         return Response.ok().entity(GSON.toJson(updatedUserDTO)).build();
 
