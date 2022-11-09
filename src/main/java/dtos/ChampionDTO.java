@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public class ChampionDTO {
     String name;
-    String key;
+    Long key;
 
     public Champion createEntity(){
         return new Champion(name, key);
     }
 
-    public ChampionDTO(String name, String key) {
+    public ChampionDTO(String name, Long key) {
         this.name = name;
         this.key = key;
     }

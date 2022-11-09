@@ -1,19 +1,19 @@
 package rest;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import dtos.UserDTO;
 import entities.User;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.TypedQuery;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
-import javax.ws.rs.Produces;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
+
+import facades.UserFacade;
 import utils.EMF_Creator;
 
 /**
@@ -21,7 +21,8 @@ import utils.EMF_Creator;
  */
 @Path("info")
 public class DemoResource {
-    
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     @Context
     private UriInfo context;
@@ -58,6 +59,26 @@ public class DemoResource {
     public String getFromUser() {
         String thisuser = securityContext.getUserPrincipal().getName();
         return "{\"msg\": \"Hello to User: " + thisuser + "\"}";
+    }
+
+    @Path("{id}")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getPerson(@PathParam("id") String id) {
+
+        UserDTO userDTO = UserFacade.getUserFacade(EMF).getByPersonId(id);
+        return Response.ok().entity(GSON.toJson(userDTO)).build();
+    }
+
+    @PUT
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response updatePerson(@PathParam("id") String userName, String content) throws EntityNotFoundException {
+        UserDTO userDTO = GSON.fromJson(content, UserDTO.class);
+        UserDTO updatedUserDTO = UserFacade.getUserFacade(EMF).update(userDTO);
+        return Response.ok().entity(GSON.toJson(updatedUserDTO)).build();
+
     }
 
     @GET

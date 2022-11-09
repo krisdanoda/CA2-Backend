@@ -16,7 +16,7 @@ public class Champion implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private String id;
+    private Long id;
 
     private String name;
 
@@ -27,7 +27,7 @@ public class Champion implements Serializable {
     public Champion() {
     }
 
-    public Champion( String name, String id) {
+    public Champion( String name, Long id) {
         this.id = id;
         this.name = name;
     }
@@ -45,11 +45,11 @@ public class Champion implements Serializable {
                 '}';
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -52,7 +52,7 @@ public class Main {
 
     public static void parseChamp(JSONObject champ){
         System.out.println(champ.get("name").toString() + champ.get("key").toString());
-        Champion champion = new Champion(champ.get("name").toString(),champ.get("key").toString() );
+        Champion champion = new Champion(champ.get("name").toString(), Long.parseLong(champ.get("key").toString()));
         System.out.println(champion);
 
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();

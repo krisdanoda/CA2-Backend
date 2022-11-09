@@ -1,8 +1,12 @@
 package facades;
 
+import dtos.UserDTO;
 import entities.User;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
+
 import security.errorhandling.AuthenticationException;
 
 /**
@@ -17,7 +21,6 @@ public class UserFacade {
     }
 
     /**
-     *
      * @param _emf
      * @return the instance of this facade.
      */
@@ -43,4 +46,31 @@ public class UserFacade {
         return user;
     }
 
+    public UserDTO getByPersonId(String id) throws EntityNotFoundException {
+        EntityManager em = emf.createEntityManager();
+        User p = em.find(User.class, id);
+        if (p == null)
+            throw new EntityNotFoundException("The Person entity with ID: " + id + " Was not found");
+        return new UserDTO(p);
+    }
+
+
+    public UserDTO update(UserDTO userDTO) throws EntityNotFoundException {
+
+        User user = userDTO.createEntity();
+        EntityManager em = emf.createEntityManager();
+
+        System.out.println(user);
+
+        em.getTransaction().begin();
+        User p = em.find(User.class, userDTO.getUser_name());
+        user.setUserPass(p.getUserPass());
+
+        em.merge(user);
+        em.getTransaction().commit();
+        em.close();
+
+
+        return new UserDTO(user);
+    }
 }

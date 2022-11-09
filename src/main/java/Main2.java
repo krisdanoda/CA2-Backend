@@ -1,4 +1,5 @@
 import entities.Champion;
+import entities.Role;
 import entities.User;
 import utils.EMF_Creator;
 
@@ -10,8 +11,9 @@ public class Main2 {
     public static void main(String[] args) {
 
         User user = new User("ina", "taco");
-        Champion champion1 = new Champion("Kayle", "10");
-        Champion champion2 = new Champion("Gwen", "887");
+        Champion champion1 = new Champion("Kayle", 10L);
+        Champion champion2 = new Champion("Gwen", 887L);
+        Role userRole = new Role("user");
         user.getChampions().add(champion1);
         user.getChampions().add(champion2);
 
@@ -23,6 +25,7 @@ public class Main2 {
 
         try {
             em.getTransaction().begin();
+            user.addRole(userRole);
             em.persist(user);
 
             em.getTransaction().commit();
