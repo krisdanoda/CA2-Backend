@@ -60,7 +60,7 @@ public class UserFacade {
         User user = userDTO.createEntity();
         EntityManager em = emf.createEntityManager();
 
-        System.out.println(user);
+        System.out.println("check 3 " + user);
 
         em.getTransaction().begin();
         User p = em.find(User.class, userDTO.getUser_name());
