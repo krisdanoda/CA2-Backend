@@ -22,8 +22,8 @@ import org.json.simple.parser.ParseException;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        String string = HttpUtils.fetchData("http://ddragon.leagueoflegends.com/cdn/12.21.1/data/en_US/champion.json");
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+       // String string = HttpUtils.fetchData("http://ddragon.leagueoflegends.com/cdn/12.21.1/data/en_US/champion.json");
+       // Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader("C:\\Users\\krist\\Programming\\JS\\CA2-frontend-league\\CA2-Backend\\src\\main\\java\\output.json"))
@@ -35,7 +35,7 @@ public class Main {
             System.out.println(employeeList);
 
             //Iterate over employee array
-            employeeList.forEach( emp -> parseChamp( (JSONObject) emp ) );
+            employeeList.forEach( champion -> parseChamp( (JSONObject) champion ) );
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
