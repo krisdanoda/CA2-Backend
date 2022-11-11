@@ -4,6 +4,7 @@ import dtos.ChampionDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,18 +23,18 @@ public class Champion implements Serializable {
 
 
     @ManyToMany(mappedBy = "champions")
-    private List<User> userList;
+    private List<User> userList = new ArrayList<>();
 
     public Champion() {
     }
 
-    public Champion( String name, Long id) {
+    public Champion(String name, Long id) {
         this.id = id;
         this.name = name;
     }
 
-    public ChampionDTO createDTO(){
-        return new ChampionDTO( name, id);
+    public ChampionDTO createDTO() {
+        return new ChampionDTO(name, id);
     }
 
     @Override
@@ -63,6 +64,11 @@ public class Champion implements Serializable {
 
     public List<User> getUserList() {
         return userList;
+    }
+
+    public void addUser(User user) {
+        userList.add(user);
+
     }
 
     public void setUserList(List<User> userList) {

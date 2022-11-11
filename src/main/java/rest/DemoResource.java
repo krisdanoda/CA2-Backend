@@ -24,6 +24,7 @@ public class DemoResource {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
+    public static final UserFacade USER_FACADE = UserFacade.getUserFacade(EMF);
     @Context
     private UriInfo context;
 
@@ -66,7 +67,7 @@ public class DemoResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getPerson(@PathParam("id") String id) {
 
-        UserDTO userDTO = UserFacade.getUserFacade(EMF).getByPersonId(id);
+        UserDTO userDTO = USER_FACADE.getByPersonId(id);
         return Response.ok().entity(GSON.toJson(userDTO)).build();
     }
 
@@ -78,7 +79,7 @@ public class DemoResource {
         System.out.println("check 1 " + content);
         UserDTO userDTO = GSON.fromJson(content, UserDTO.class);
         System.out.println("check 2" + userDTO.toString());
-        UserDTO updatedUserDTO = UserFacade.getUserFacade(EMF).update(userDTO);
+        UserDTO updatedUserDTO = USER_FACADE.update(userDTO);
         return Response.ok().entity(GSON.toJson(updatedUserDTO)).build();
 
     }

@@ -39,9 +39,9 @@ public class UserDTO {
 
         List<Champion> champions = new ArrayList<>();
         for (ChampionDTO championDTO: this.champions){
-            champions.add(championDTO.createEntity());
+            user.addChampion(championDTO.createEntity());
         }
-        user.setChampions(champions);
+
         return user;
 
     }

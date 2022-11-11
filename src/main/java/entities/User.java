@@ -110,7 +110,10 @@ public class User implements Serializable {
     return champions;
   }
 
-  public void setChampions(List<Champion> champions) {
-    this.champions = champions;
+  public void addChampion(Champion champion) {
+    champions.add(champion);
+    champion.addUser(this);
+
+
   }
 }
