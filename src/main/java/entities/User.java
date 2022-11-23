@@ -114,6 +114,5 @@ public class User implements Serializable {
     champions.add(champion);
     champion.addUser(this);
 
-
   }
 }
